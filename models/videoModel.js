@@ -24,6 +24,11 @@ const videoSchema = new mongoose.Schema({
     imageUrl:{
         type:String,
         required:true
+    },
+        type:{
+        type:String,
+        enum:['mobile', 'web'],
+        required:true
     }
 },
 {timestamps:true}
