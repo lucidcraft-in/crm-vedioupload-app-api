@@ -13,8 +13,8 @@ require('dotenv').config()
 connectDB()
  
 app.use(cors({
-    // origin: "https://resonant-gecko-5bc789.netlify.app",
-    origin:'http://localhost:5173',
+    origin: "https://support-web.netlify.app",
+    // origin:'http://localhost:5173',
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials:true
@@ -24,7 +24,7 @@ app.use(express.urlencoded({extended:true}))
 
 //use express sesion
 app.use(session({
-    secret:process.env.SESSION_SECRET,
+    secret:process.env.SESSION_SECRET || '72f8b4527c8f4a2b9f3bda11a9d55f467c2d66b36e8c9a2a5eab6c56bc8a4c3d',
     saveUninitialized:true,
     resave:false,
     cookie:{
