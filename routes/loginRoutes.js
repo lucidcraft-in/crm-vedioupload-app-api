@@ -22,38 +22,43 @@ transporter = nodemailer.createTransport({
 
 //admin login
 router.post('/login', async(req,res) =>{
-    try{
-        //fetch data from body
-        const {email, password} = req.body
-        // console.log('req.body', req.body);
-        
+    try {
+      res.header('Access-Control-Allow-Origin', '*'); // update to match the domain you will make the request from
+      res.header(
+        'Access-Control-Allow-Headers',
+        'Origin, X-Requested-With, Content-Type, Accept'
+      );
+      //fetch data from body
+      const { email, password } = req.body;
+      // console.log('req.body', req.body);
 
-        if(!email || !password) {
-            return res.status(400).json({message:'email and password filed is required'})
-        }
+      if (!email || !password) {
+        return res
+          .status(400)
+          .json({ message: 'email and password filed is required' });
+      }
 
-        const admin = await adminModel.findOne({email})
-        if(!admin){
-            return res.status(400).json({message:"Admin not found"})
-        }
+      const admin = await adminModel.findOne({ email });
+      if (!admin) {
+        return res.status(400).json({ message: 'Admin not found' });
+      }
 
-        if(admin.role !== 'admin'){
-            return res.status(400).json({message:"invalid role"})
-        }
+      if (admin.role !== 'admin') {
+        return res.status(400).json({ message: 'invalid role' });
+      }
 
-        const  isMatch = await bcrypt.compare(password,admin.password)
-        if(!isMatch){
-            return res.status(400).json({message:"invalid password"})
-        }
-        req.session.adminId =admin._id 
+      const isMatch = await bcrypt.compare(password, admin.password);
+      if (!isMatch) {
+        return res.status(400).json({ message: 'invalid password' });
+      }
+      req.session.adminId = admin._id;
 
-        // console.log(req.session.adminId);
-        
-        res.status(200).json({message:'Login successfull...!'})
+      // console.log(req.session.adminId);
 
-    }catch(error){
-        console.log(error);
-        res.status(500).json({message:"internal server error"})
+      res.status(200).json({ message: 'Login successfull...!' });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: 'internal server error' });
     }
 })
 
