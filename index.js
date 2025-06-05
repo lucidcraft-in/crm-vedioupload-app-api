@@ -13,7 +13,7 @@ require('dotenv').config()
 connectDB()
  
 app.use(cors({
-    origin: "https://support-web.netlify.app",
+    origin: '*',
     // origin:'http://localhost:5173',
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
