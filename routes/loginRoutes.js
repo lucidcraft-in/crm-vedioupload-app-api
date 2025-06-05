@@ -23,14 +23,6 @@ transporter = nodemailer.createTransport({
 //admin login
 router.post('/login', async(req,res) =>{
     try {
-      res.header(
-        'Access-Control-Allow-Origin',
-        'https://scaleup-vediapp-web.onrender.com/'
-      ); // update to match the domain you will make the request from
-      res.header(
-        'Access-Control-Allow-Headers',
-        'Origin, X-Requested-With, Content-Type, Accept'
-      );
       //fetch data from body
       const { email, password } = req.body;
       // console.log('req.body', req.body);
